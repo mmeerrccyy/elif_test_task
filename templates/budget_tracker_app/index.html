@@ -1,0 +1,23 @@
+{% extends 'budget_tracker_app/wrapper.html' %}
+{% load static %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+{% block head %}
+    Index
+{% endblock %}
+{% block content %}
+    <div class="masthead">
+        <div class="container d-flex h-100 align-items-center">
+            <div class="mx-auto text-center">
+                <h1 class="mx-auto my-0 text-uppercase">Budget Tracker</h1>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a class="btn btn-primary js-scroll-trigger" href="{% url 'sign_up' %}">Sign Up</a>
+                    <a class="btn btn-primary js-scroll-trigger" href="{% url 'login' %}">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
