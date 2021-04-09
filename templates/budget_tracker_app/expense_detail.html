@@ -8,9 +8,8 @@
     <div class="container">
         <div class="clearfix">
             <a class="btn btn-primary left" href="{% url 'index' %}"> Calendar </a>
-            <a href="{% url 'expense-delete' expense_id=expense.id %}">
-                <button class="btn btn-danger">Delete</button>
-            </a>
+            <a class="btn btn-danger" href="{% url 'expense-delete' expense_id=expense.id %}">Delete</a>
+            <a class="btn btn-primary left" href="{% url 'expense-edit' pk=expense.id %}">Edit</a>
         </div>
 
         <div class="clearfix">

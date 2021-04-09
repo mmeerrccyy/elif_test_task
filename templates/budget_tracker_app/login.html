@@ -11,11 +11,14 @@
                 <h3 class="mx-auto my-0 text-uppercase">Login</h3>
                 <form action="" method="POST">
                     {% csrf_token %}
-                    {{ form|crispy }}
-                    <br>
-                    <div class="col-md-12 text-center">
-                        <input type="submit" class="btn btn-primary js-scroll-trigger" value="Увійти">
-                    </div>
+                    <table class="form form-table">
+                        {{ form }}
+                        <div class="col-md-12 text-center">
+                            <tr>
+                                <td colspan="2"><input type="submit" class="btn btn-primary" value="Enter"></td>
+                            </tr>
+                        </div>
+                    </table>
                 </form>
             </div>
         </div>

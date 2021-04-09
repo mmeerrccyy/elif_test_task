@@ -15,9 +15,10 @@
     </div>
     <br>
     <br>
-    <a class="btn btn-primary js-scroll-trigger" href="{% url 'index' %}?{{ next_month }} "> Next Month >> </a>
-    <a class="btn btn-primary js-scroll-trigger" href="{% url 'index' %}?{{ prev_month }}"> << Previous Month </a>
-    <a class="btn btn-primary js-scroll-trigger" href="{% url 'add_expense' %}"> + New Expense </a>
+    <div>
+        <a class="btn btn-primary js-scroll-trigger" href="{% url 'index' %}?{{ next_month }} "> Next Month >> </a>
+        <a class="btn btn-primary js-scroll-trigger" href="{% url 'index' %}?{{ prev_month }}"> << Previous Month </a>
+        <a class="btn btn-primary js-scroll-trigger" href="{% url 'add_expense' %}"> + New Expense </a>
     </div>
     <div style="color: blueviolet;">
         {{ calendar }}
@@ -28,11 +29,10 @@
                 <span>{{ expense_item.expense_name }}</span>
                 <span>{{ expense_item.cost }}$</span>
                 <span>{{ expense_item.date_added }}</span>
-                <a href="{% url 'expense-delete' expense_id=expense_item.id %}">
-                    <button class="btn btn-danger">Delete</button>
-                </a>
+                <a class="btn btn-danger" href="{% url 'expense-delete' expense_id=expense_item.id %}">Delete</a>
+                <a class="btn btn-primary" href="{% url 'expense-edit' pk=expense_item.id %}">Edit</a>
             </div>
         {% endfor %}
-    {% if expense_items.count %}<span>Total {{ budget_total.budget }}$</span>{% endif %}
+        {% if expense_items.count %}<span>Total {{ budget_total.budget }}$</span>{% endif %}
     </div>
 {% endblock %}

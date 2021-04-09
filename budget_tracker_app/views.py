@@ -1,6 +1,7 @@
 import calendar
 from datetime import datetime, date, timedelta
 
+from django.views import generic
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.db.models import Q
@@ -141,6 +142,12 @@ class DeleteExpense(View):
         expense = ExpenseInfo.objects.get(id=expense_id)
         expense.delete()
         return HttpResponseRedirect('/')
+
+
+class EventEdit(generic.UpdateView):
+    model = ExpenseInfo
+    fields = ['expense_name', 'date_added', 'cost']
+    template_name = 'budget_tracker_app/expense.html'
 
 #
 # def add_expense(request, *args, **kwargs):

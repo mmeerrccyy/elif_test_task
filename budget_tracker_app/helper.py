@@ -9,6 +9,5 @@ def get_current_user():
     for session in active_sessions:
         data = session.get_decoded()
         user_id_list.append(data.get('_auth_user_id', None))
-    print(user_id_list)
-    user = User.objects.get(id=user_id_list[len(user_id_list)-1])
+    user = User.objects.get(id=user_id_list[len(user_id_list) - 1])
     return user

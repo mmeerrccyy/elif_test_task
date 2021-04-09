@@ -7,17 +7,20 @@
 {% block content %}
     <div class="signup-form">
         <div class="container d-flex h-100 align-items-center">
-            <div class="mx-auto text-center">
+            <tr class="mx-auto text-center">
                 <h3 class="mx-auto my-0 text-uppercase">Sign up</h3>
                 <form method="POST" action={% url 'sign_up' %}>
                     {% csrf_token %}
-                    {{ form|crispy }}
-                    <br>
-                    <div class="col-md-12 text-center">
-                        <button type="submit" class="btn btn-primary js-scroll-trigger">Sign up</button>
-                    </div>
+                    <table class="form form-table">
+                        {{ form }}
+                        <tr>
+                            <td colspan="2">
+                                <button type="submit" class="btn btn-primary right">Sign up</button>
+                            </td>
+                        </tr>
+                    </table>
                 </form>
-            </div>
         </div>
+    </div>
     </div>
 {% endblock %}
