@@ -74,6 +74,7 @@ body {
 
 .body {
     height: 100%;
+    font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .btn-primary {
@@ -85,7 +86,6 @@ body {
 .btn {
     box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
     padding: 1.25rem 2rem;
-    font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-size: 80%;
     text-transform: uppercase;
     letter-spacing: 0.15rem;
@@ -177,8 +177,7 @@ label {
 
 
 .calendar {
-    width: auto;
-    height: auto;
+    width: 100%;
     margin: auto;
     font-size: 13px;
 }
@@ -240,4 +239,14 @@ a {
     background: none;
     padding: 5px;
     width: 100%;
+}
+
+.btn-menu{
+    margin-bottom: 15px;
+}
+
+.block{
+    display: block;
+    margin: 20px;
+    padding-bottom: 75px;
 }

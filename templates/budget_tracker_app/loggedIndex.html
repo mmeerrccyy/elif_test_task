@@ -9,30 +9,60 @@
     Index
 {% endblock %}
 {% block content %}
-    <div class="text-right">
-        <span class="left m-2" style="font-size: 20px;">Welcome, {{ request.user }}</span>
-        <a class="btn btn-primary js-scroll-trigger" href="{% url 'logout' %}"> Logout </a>
+    <div class="logged-index">
+        <div class="text-right block">
+            <a class="btn btn-primary js-scroll-trigger m-2 right" href="{% url 'logout' %}"> Logout </a>
+            <span class="left m-2 right" style="font-size: 20px;">Welcome, {{ request.user }}</span>
+        </div>
+        <hr>
+        <div class="container">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Expense name</th>
+                    <th scope="col">Cost</th>
+                    <th scope="col">Date added</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for expense_item in expense_items %}
+                    <tr role="row">
+                        <td>{{ expense_item.expense_name }}</td>
+                        <td>{{ expense_item.cost }}$</td>
+                        <td>{{ expense_item.date_added }}</td>
+                        <td>
+                            <a class="btn btn-danger m-2 right"
+                               href="{% url 'expense-delete' expense_id=expense_item.id %}">Delete</a>
+                            <a class="btn btn-primary m-2 right"
+                               href="{% url 'expense-edit' pk=expense_item.id %}">Edit</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% if expense_items.count %}
+                    <tr>
+                        <td colspan="">Total</td>
+                        <td class="m-2">{{ budget_total.budget }}$</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+
+        </div>
+        <hr>
+        <div class="">
+            <a class="btn btn-primary js-scroll-trigger right mr-2 btn-menu" href="{% url 'index' %}?{{ next_month }} ">
+                Next Month >> </a>
+            <a class="btn btn-primary js-scroll-trigger right mr-2 btn-menu" href="{% url 'index' %}?{{ prev_month }}">
+                << Previous Month </a>
+            <a class="btn btn-primary js-scroll-trigger right mr-2 btn-menu" href="{% url 'add_expense' %}"> + New
+                Expense </a>
+        </div>
+        <div style="color: blueviolet;">
+            {{ calendar }}
+        </div>
     </div>
-    <br>
-    <br>
-    <div>
-        <a class="btn btn-primary js-scroll-trigger" href="{% url 'index' %}?{{ next_month }} "> Next Month >> </a>
-        <a class="btn btn-primary js-scroll-trigger" href="{% url 'index' %}?{{ prev_month }}"> << Previous Month </a>
-        <a class="btn btn-primary js-scroll-trigger" href="{% url 'add_expense' %}"> + New Expense </a>
-    </div>
-    <div style="color: blueviolet;">
-        {{ calendar }}
-    </div>
-    <div>
-        {% for expense_item in expense_items %}
-            <div>
-                <span>{{ expense_item.expense_name }}</span>
-                <span>{{ expense_item.cost }}$</span>
-                <span>{{ expense_item.date_added }}</span>
-                <a class="btn btn-danger" href="{% url 'expense-delete' expense_id=expense_item.id %}">Delete</a>
-                <a class="btn btn-primary" href="{% url 'expense-edit' pk=expense_item.id %}">Edit</a>
-            </div>
-        {% endfor %}
-        {% if expense_items.count %}<span>Total {{ budget_total.budget }}$</span>{% endif %}
-    </div>
+
 {% endblock %}
