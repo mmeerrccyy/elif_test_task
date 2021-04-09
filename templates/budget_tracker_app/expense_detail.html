@@ -1,0 +1,24 @@
+{% extends 'budget_tracker_app/wrapper.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block head %}
+    Expense detail
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="clearfix">
+            <a class="btn btn-primary left" href="{% url 'index' %}"> Calendar </a>
+            <a href="{% url 'expense-delete' expense_id=expense.id %}">
+                <button class="btn btn-danger">Delete</button>
+            </a>
+        </div>
+
+        <div class="clearfix">
+            <h3>Expense Name: {{ expense.expense_name }}</h3>
+            <p>Date <span style="color: gray;">{{ expense.date_added }}</span>
+            <hr>
+            <p>Price {{ expense.cost }}$</p>
+        </div>
+        <hr>
+    </div>
+{% endblock %}

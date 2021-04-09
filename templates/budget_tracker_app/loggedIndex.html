@@ -1,0 +1,38 @@
+{% extends 'budget_tracker_app/wrapper.html' %}
+{% load static %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+{% block head %}
+    Index
+{% endblock %}
+{% block content %}
+    <div class="text-right">
+        <span class="left m-2" style="font-size: 20px;">Welcome, {{ request.user }}</span>
+        <a class="btn btn-primary js-scroll-trigger" href="{% url 'logout' %}"> Logout </a>
+    </div>
+    <br>
+    <br>
+    <a class="btn btn-primary js-scroll-trigger" href="{% url 'index' %}?{{ next_month }} "> Next Month >> </a>
+    <a class="btn btn-primary js-scroll-trigger" href="{% url 'index' %}?{{ prev_month }}"> << Previous Month </a>
+    <a class="btn btn-primary js-scroll-trigger" href="{% url 'add_expense' %}"> + New Expense </a>
+    </div>
+    <div style="color: blueviolet;">
+        {{ calendar }}
+    </div>
+    <div>
+        {% for expense_item in expense_items %}
+            <div>
+                <span>{{ expense_item.expense_name }}</span>
+                <span>{{ expense_item.cost }}$</span>
+                <span>{{ expense_item.date_added }}</span>
+                <a href="{% url 'expense-delete' expense_id=expense_item.id %}">
+                    <button class="btn btn-danger">Delete</button>
+                </a>
+            </div>
+        {% endfor %}
+    {% if expense_items.count %}<span>Total {{ budget_total.budget }}$</span>{% endif %}
+    </div>
+{% endblock %}
