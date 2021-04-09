@@ -1,4 +1,5 @@
 from calendar import HTMLCalendar
+from django.shortcuts import redirect
 
 from .helper import get_current_user
 from .models import ExpenseInfo
@@ -33,7 +34,8 @@ class Calendar(HTMLCalendar):
     # formats a month as a table
     # filter events by year and month
     def formatmonth(self, withyear=True, **kwargs):
-        expenses = ExpenseInfo.objects.filter(date_added__year=self.year, date_added__month=self.month, user_expense=get_current_user())
+        expenses = ExpenseInfo.objects.filter(date_added__year=self.year, date_added__month=self.month,
+                                              user_expense=get_current_user())
 
         cal = f'<table border="0" cellpadding="0" cellspacing="0" class="calendar">\n'
         cal += f'{self.formatmonthname(self.year, self.month, withyear=withyear)}\n'
@@ -41,3 +43,24 @@ class Calendar(HTMLCalendar):
         for week in self.monthdays2calendar(self.year, self.month):
             cal += f'{self.formatweek(week, expenses)}\n'
         return cal
+
+
+def anonymous_required(redirect_url, **kwargs):
+    """
+    Decorator for views that allow only unauthenticated users to access view.
+    Usage:
+    @anonymous_required(redirect_url='company_info')
+    def homepage(request):
+        return render(request, 'homepage.html')
+    """
+
+    def _wrapped(view_func, *args, **kwargs):
+        def check_anonymous(request, *args, **kwargs):
+            view = view_func(request, *args, **kwargs)
+            if request.user.is_authenticated():
+                return redirect(redirect_url)
+            return view
+
+        return check_anonymous
+
+    return _wrapped

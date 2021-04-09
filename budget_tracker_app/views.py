@@ -1,7 +1,6 @@
 import calendar
 from datetime import datetime, date, timedelta
 
-from django.views import generic
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.db.models import Q
@@ -9,11 +8,13 @@ from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
+from django.views import generic
 from django.views.generic.base import View
 
 from budget_tracker_app.forms import SignUpForm, LoginForm, ExpenseForm
 from budget_tracker_app.models import ExpenseInfo
 from budget_tracker_app.utils import Calendar
+
 
 def get_date(req_day):
     if req_day:
@@ -40,7 +41,10 @@ def next_month(d):
 class WelcomeView(View):
 
     def get(self, request, *args, **kwargs):
-        return render(request, 'budget_tracker_app/welcome.html')
+        if request.user.is_anonymous:
+            return render(request, 'budget_tracker_app/welcome.html')
+        else:
+            return HttpResponseRedirect('/')
 
 
 class SignUpView(View):
@@ -53,28 +57,34 @@ class SignUpView(View):
                 password=form.cleaned_data['password1']
             )
             user = authenticate(username=form.cleaned_data['username'], passsword=form.cleaned_data['password1'])
-            return redirect('hello_world')
+            return redirect('index')
         context = {
             'form': form
         }
         return render(request, 'budget_tracker_app/signup.html', context)
 
     def get(self, request, *args, **kwargs):
-        form = SignUpForm(request.POST or None)
-        context = {
-            'form': form
-        }
-        return render(request, 'budget_tracker_app/signup.html', context)
+        if request.user.is_anonymous:
+            form = SignUpForm(request.POST or None)
+            context = {
+                'form': form
+            }
+            return render(request, 'budget_tracker_app/signup.html', context)
+        else:
+            return HttpResponseRedirect('/')
 
 
 class LoginView(View):
 
     def get(self, request, *args, **kwargs):
-        form = LoginForm(request.POST or None)
-        context = {
-            'form': form
-        }
-        return render(request, 'budget_tracker_app/login.html', context)
+        if request.user.is_anonymous:
+            form = LoginForm(request.POST or None)
+            context = {
+                'form': form
+            }
+            return render(request, 'budget_tracker_app/login.html', context)
+        else:
+            return HttpResponseRedirect('/')
 
     def post(self, request, *args, **kwargs):
         form = LoginForm(request.POST or None)
@@ -95,7 +105,8 @@ class LoggedIndex(View):
 
     def get(self, request, *args, **kwargs):
         current_date = date.today()
-        expense_items = ExpenseInfo.objects.filter(user_expense=request.user, date_added=current_date).order_by('-date_added')
+        expense_items = ExpenseInfo.objects.filter(user_expense=request.user, date_added=current_date).order_by(
+            '-date_added')
         budget_total = ExpenseInfo.objects.filter(user_expense=request.user, date_added=current_date).aggregate(
             budget=Sum('cost', filter=Q(cost__gt=0)))
         d = get_date(self.request.GET.get('month', None))
@@ -148,14 +159,3 @@ class EventEdit(generic.UpdateView):
     model = ExpenseInfo
     fields = ['expense_name', 'date_added', 'cost']
     template_name = 'budget_tracker_app/expense.html'
-
-#
-# def add_expense(request, *args, **kwargs):
-#     name = request.POST['expense_name']
-#     expense_cost = request.POST['cost']
-#     expense_date = request.POST['expense_date']
-#     ExpenseInfo.objects.create(expense_name=name, cost=expense_cost, date_added=expense_date,
-#                                user_expense=request.user)
-#     expense_total = ExpenseInfo.objects.filter(user_expense=request.user).aggregate(
-#         expenses=Sum('cost', filter=Q(cost__lt=0)))
-#     return HttpResponseRedirect('/')

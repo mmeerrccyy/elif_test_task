@@ -49,11 +49,16 @@
 }
 
 html {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000000 100%) no-repeat center center fixed;
+    position: relative;
+    background-position: center;
+    background-attachment: scroll;
+    background-size: cover;
     font-family: sans-serif;
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    height: 100%;
+    height: auto;
 }
 
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
@@ -68,8 +73,14 @@ body {
     line-height: 1.5;
     color: #212529;
     text-align: left;
-    background-color: #fff;
+    /*background-color: #fff;*/
     height: 100%;
+    /*background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 75%, #000000 100%);*/
+    background: transparent;
+    position: relative;
+    background-position: center;
+    background-attachment: scroll;
+    background-size: cover;
 }
 
 .body {
@@ -241,12 +252,20 @@ a {
     width: 100%;
 }
 
-.btn-menu{
+.btn-menu {
     margin-bottom: 15px;
 }
 
-.block{
+.block {
     display: block;
     margin: 20px;
     padding-bottom: 75px;
 }
+
+li{
+    font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+}
+
