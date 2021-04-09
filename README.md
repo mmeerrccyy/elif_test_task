@@ -10,3 +10,5 @@
 7. Migrate Database `python manage.py migrate`
 8. Create Super User `python manage.py createsuperuser`
 9. Finally Run The Project `python manage.py runserver`
+
+[DEMO](https://eliftesttask.herokuapp.com/)
