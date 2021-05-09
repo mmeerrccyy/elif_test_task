@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'elif_test_task.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'de054e4rpl8tuu',
-        'HOST': 'ec2-54-155-35-88.eu-west-1.compute.amazonaws.com',
+        'NAME': 'd2srq9qukf4agk',
+        'HOST': 'ec2-54-228-139-34.eu-west-1.compute.amazonaws.com',
         'PORT': 5432,
-        'USER': 'noiibuhlyirvbc',
-        'PASSWORD':'ea556a3700015ea2213e29cfb349968405653b80822b3a04a386970618eae2ec'
+        'USER': 'gqqxpntsjpyfiq',
+        'PASSWORD':'281ee5826f5207f86996b2dac16a7fb1ee021fa5bc14660a2029f270ba77664b'
     }
 }
 
